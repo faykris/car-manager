@@ -2,11 +2,20 @@
 
 @section('content')
     <div class="container mt-5">
-        <h1>Lista de Carros</h1>
-        <a href="{{ route('cars.create') }}" class="btn btn-primary mb-3">Agregar Carro</a>
+
+        <div class="row mb-5">
+            <div class="col-12 col-md-9">
+                <h3>Listado de Carros</h3>
+            </div>
+            <div class="col-12 col-md-3 d-flex justify-content-md-end">
+                <button class="btn btn-primary create-btn" title="Agregar carro">
+                    <i class="fa-solid fa-plus"></i> Agregar
+                </button>
+            </div>
+        </div>
 
         <!-- Tabla de carros -->
-        <table class="table">
+        <table class="table table-striped">
             <thead>
             <tr>
                 <th>ID</th>
@@ -26,15 +35,15 @@
                     <td>{{ $car->model }}</td>
                     <td>{{ $car->year }}</td>
                     <td>{{ $car->color }}</td>
-                    <td>{{ $car->price }}</td>
+                    <td>${{ $car->price }}</td>
                     <td>
                         <!-- Botón para editar -->
-                        <a href="{{ route('cars.edit', $car->id) }}" class="btn-table-option">
+                        <button class="btn-table-option edit-btn" data-id="{{ $car->id }}" title="Editar">
                             <i class="fa-solid fa-edit"></i>
-                        </a>
+                        </button>
 
-                        <!-- Botón con SweetAlert -->
-                        <button class="btn-table-option delete-btn" data-id="{{ $car->id }}">
+                        <!-- Botón para validar con SweetAlert -->
+                        <button class="btn-table-option delete-btn" data-id="{{ $car->id }}" title="Eliminar">
                             <i class="fa-solid fa-trash"></i>
                         </button>
 

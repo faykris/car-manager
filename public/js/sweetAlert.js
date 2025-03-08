@@ -1,6 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
     const deleteButtons = document.querySelectorAll('.delete-btn');
+    const editButtons = document.querySelectorAll(".edit-btn");
+    const createButton = document.querySelector(".create-btn")
 
+    // Mostrar pantalla crear
+    createButton.addEventListener("click", function () {
+        window.location.href = `/cars/create`;
+    });
+
+    // Mostrar pantalla editar
+    editButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+            const carId = this.getAttribute("data-id");
+            window.location.href = `/cars/${carId}/edit`;
+        });
+    });
+
+    // Validar eliminar con modal SweetAlert
     deleteButtons.forEach(button => {
         button.addEventListener('click', function (e) {
             e.preventDefault();
