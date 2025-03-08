@@ -1,0 +1,20 @@
+.btn-table-option {
+    background-color: transparent;
+    border-radius: 8px;
+    padding: .1rem;
+    transition: all .3s;
+    width: 2rem;
+    color: #706f6c;
+    border: none;
+    margin: 0 .1rem;
+}
+
+.btn-table-option i {
+    font-size: 13px;
+    text-align: center;
+}
+
+.btn-table-option:hover {
+    background-color: #706f6c;
+    color: white;
+}

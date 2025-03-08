@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Gestión de Carros</title>
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/solid.min.css" integrity="sha512-DzC7h7+bDlpXPDQsX/0fShhf1dLxXlHuhPBkBo/5wJWRoTU6YL7moeiNoej6q3wh5ti78C57Tu1JwTNlcgHSjg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- SweetAlert CSS -->
@@ -20,57 +25,7 @@
 <!-- SweetAlert JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const deleteButtons = document.querySelectorAll('.delete-btn');
+<script src="{{ asset('js/sweetAlert.js') }}"></script>
 
-        deleteButtons.forEach(button => {
-            button.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                const carId = this.getAttribute('data-id'); // Obtén el ID del carro
-                console.log("carId", carId)
-                Swal.fire({
-                    title: '¿Estás seguro?',
-                    text: "¡No podrás revertir esto!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Sí, eliminar',
-                    cancelButtonText: 'Cancelar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Envía la solicitud DELETE al endpoint correcto
-                        fetch(`/cars/${carId}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}', // Token CSRF
-                                'Content-Type': 'application/json'
-                            }
-                        }).then(response => {
-                            console.log("response", response)
-                            if (response.ok) {
-                                Swal.fire(
-                                    '¡Eliminado!',
-                                    'El carro ha sido eliminado.',
-                                    'success'
-                                ).then(() => {
-                                    window.location.reload(); // Recarga la página
-                                });
-                            } else {
-                                Swal.fire(
-                                    'Error',
-                                    'No se pudo eliminar el carro.',
-                                    'error'
-                                );
-                            }
-                        });
-                    }
-                });
-            });
-        });
-    });
-</script>
 </body>
 </html>
