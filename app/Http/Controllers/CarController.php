@@ -4,15 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CarController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cars = Car::all();
+        $query = Car::query();
+
+        if ($request->has('brand')) {
+            $query->where('brand', 'LIKE', '%' . $request->brand . '%');
+        }
+
+        if ($request->has('model')) {
+            $query->where('model', 'LIKE', '%' . $request->model . '%');
+        }
+
+        $cars = $query->orderBy('id', 'desc')->paginate(5);
+
         return view('cars.index', compact('cars'));
     }
 
@@ -32,9 +44,9 @@ class CarController extends Controller
         $request->validate([
             'brand' => 'required|string|max:255',
             'model' => 'required|string|max:255',
-            'year' => 'required|integer',
-            'color' => 'required|string|max:255',
-            'price' => 'required|numeric',
+            'year' => 'required|integer|min:1900|max:' . date('Y'),
+            'color' => 'required|string|max:50',
+            'price' => 'required|numeric|min:1000|max:99999',
         ]);
 
         Car::create($request->all());
@@ -66,9 +78,9 @@ class CarController extends Controller
         $request->validate([
             'brand' => 'required|string|max:255',
             'model' => 'required|string|max:255',
-            'year' => 'required|integer',
-            'color' => 'required|string|max:255',
-            'price' => 'required|numeric',
+            'year' => 'required|integer|min:1900|max:' . date('Y'),
+            'color' => 'required|string|max:50',
+            'price' => 'required|numeric|min:1000|max:99999',
         ]);
 
         $car->update($request->all());

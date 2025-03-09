@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="container mt-5">
-
         <div class="row mb-5">
             <div class="col-12 col-md-9">
                 <h3>Listado de Carros</h3>
@@ -13,6 +12,26 @@
                 </button>
             </div>
         </div>
+
+        <!-- Formulario de búsqueda -->
+        <form method="GET" action="{{ route('cars.index') }}" class="mb-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" name="brand" class="form-control" placeholder="Buscar por Marca" value="{{ request('brand') }}">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="model" class="form-control" placeholder="Buscar por Modelo" value="{{ request('model') }}">
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">
+                        Buscar
+                    </button>
+                    <button type="button" class="btn btn-secondary index-btn mx-2" title="Restaurar filtro">
+                        Limpiar
+                    </button>
+                </div>
+            </div>
+        </form>
 
         <!-- Tabla de carros -->
         <table class="table table-striped">
@@ -57,5 +76,9 @@
             @endforeach
             </tbody>
         </table>
+
+        <div class="d-flex justify-content-center">
+            {{ $cars->links() }}
+        </div>
     </div>
 @endsection

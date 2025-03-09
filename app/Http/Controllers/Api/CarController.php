@@ -11,9 +11,19 @@ class CarController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Car::all();
+        $query = Car::query();
+
+        if ($request->has('brand')) {
+            $query->where('brand', 'LIKE', '%' . $request->brand . '%');
+        }
+
+        if ($request->has('model')) {
+            $query->where('model', 'LIKE', '%' . $request->model . '%');
+        }
+
+        return $query->orderBy('id', 'desc')->paginate(5);
     }
 
     /**
@@ -24,9 +34,9 @@ class CarController extends Controller
         $request->validate([
             'brand' => 'required|string|max:255',
             'model' => 'required|string|max:255',
-            'year' => 'required|integer',
-            'color' => 'required|string|max:255',
-            'price' => 'required|numeric',
+            'year' => 'required|integer|min:1900|max:' . date('Y'),
+            'color' => 'required|string|max:50',
+            'price' => 'required|numeric|min:1000|max:99999',
         ]);
 
         return Car::create($request->all());
@@ -48,9 +58,9 @@ class CarController extends Controller
         $request->validate([
             'brand' => 'required|string|max:255',
             'model' => 'required|string|max:255',
-            'year' => 'required|integer',
-            'color' => 'required|string|max:255',
-            'price' => 'required|numeric',
+            'year' => 'required|integer|min:1900|max:' . date('Y'),
+            'color' => 'required|string|max:50',
+            'price' => 'required|numeric|min:1000|max:99999',
         ]);
 
         $car->update($request->all());

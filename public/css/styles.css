@@ -18,3 +18,7 @@
     background-color: #706f6c;
     color: white;
 }
+
+.form-group {
+    min-height: 5.5rem;
+}

@@ -1,12 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
     const deleteButtons = document.querySelectorAll('.delete-btn');
     const editButtons = document.querySelectorAll(".edit-btn");
-    const createButton = document.querySelector(".create-btn")
+    const createButton = document.querySelector(".create-btn");
+    const goIndexButton = document.querySelector(".index-btn");
+
+    // Volver al inicio
+    if (goIndexButton) {
+        goIndexButton.addEventListener("click", function () {
+            window.location.href = `/cars/`;
+        });
+    }
 
     // Mostrar pantalla crear
-    createButton.addEventListener("click", function () {
-        window.location.href = `/cars/create`;
-    });
+    if (createButton) {
+        createButton.addEventListener("click", function () {
+            window.location.href = `/cars/create`;
+        });
+    }
 
     // Mostrar pantalla editar
     editButtons.forEach((button) => {
