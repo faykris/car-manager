@@ -99,9 +99,10 @@ class CarController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Car $car): JsonResponse
+    public function update(Request $request, $id): JsonResponse
     {
         try {
+            $car = Car::findOrFail($id);
             $validatedData = $request->validate([
                 'brand' => ['required', 'string', 'max:255', 'regex:/^\S.*\S$|^\S$/'],
                 'model' => ['required', 'string', 'max:255', 'regex:/^\S.*\S$|^\S$/'],
@@ -122,6 +123,12 @@ class CarController extends Controller
                 'message' => 'Bad request',
                 'errors' => $e->errors()
             ], 400);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Car not found.',
+                'error' => $e->getMessage()
+            ], 404);
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Internal server error.',
