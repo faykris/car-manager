@@ -1,3 +1,4 @@
+// Manejar acciones del DOM
 document.addEventListener('DOMContentLoaded', function () {
     const deleteButtons = document.querySelectorAll('.delete-btn');
     const editButtons = document.querySelectorAll(".edit-btn");
@@ -7,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Volver al inicio
     if (goIndexButton) {
         goIndexButton.addEventListener("click", function () {
-            window.location.href = `/cars/`;
+            window.location.href = `/cars`;
         });
     }
 
@@ -35,14 +36,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
             Swal.fire({
-                title: '¿Estás seguro?',
-                text: "¡No podrás revertir esto!",
+                title: 'Are you sure?',
+                text: "This action is not reversible",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar'
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
                     fetch(`/cars/${carId}`, {
@@ -55,16 +56,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     }).then(response => {
                         if (response.ok) {
                             Swal.fire(
-                                '¡Eliminado!',
-                                'El carro ha sido eliminado.',
+                                'Deleted!',
+                                'Car deleted successfully.',
                                 'success'
                             ).then(() => {
-                                window.location.reload(); // Recarga la página
+                                window.location.href = `/cars?page=1`;
                             });
                         } else {
                             Swal.fire(
                                 'Error',
-                                'No se pudo eliminar el carro.',
+                                'The car is not deleted.',
                                 'error'
                             );
                         }
@@ -74,3 +75,14 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+// Mostrar mensaje existoso después de guardar y actualizar
+function showSuccessMessage(message) {
+    Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: message,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Accept'
+    });
+}
