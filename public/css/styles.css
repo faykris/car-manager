@@ -22,3 +22,14 @@
 .form-group {
     min-height: 5.5rem;
 }
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 620px;
+}

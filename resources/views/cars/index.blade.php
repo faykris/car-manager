@@ -4,10 +4,10 @@
     <div class="container mt-5">
         <!-- Title and Add Car button -->
         <div class="row mb-5">
-            <div class="col-12 col-md-9">
+            <div class="col-6">
                 <h3>Car List</h3>
             </div>
-            <div class="col-12 col-md-3 d-flex justify-content-md-end">
+            <div class="col-6 d-flex justify-content-end">
                 <button class="btn btn-primary create-btn" title="Agregar carro">
                     <i class="fa-solid fa-plus"></i> Add Car
                 </button>
@@ -16,10 +16,10 @@
         <!-- Search form -->
         <form method="GET" action="{{ route('cars.index') }}" class="mb-4">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 mb-3 mb-md-0">
                     <input type="text" name="brand" class="form-control" placeholder="Search by brand" value="{{ request('brand') }}">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mb-3 mb-md-0">
                     <input type="text" name="model" class="form-control" placeholder="Search by model" value="{{ request('model') }}">
                 </div>
                 <div class="col-md-4">
@@ -33,48 +33,51 @@
             </div>
         </form>
         <!-- Cars table -->
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Brand</th>
-                <th>Model</th>
-                <th>Year</th>
-                <th>Color</th>
-                <th>Price</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach ($cars as $car)
+        <div class="table-container mb-4">
+            <table class="table table-striped">
+                <thead>
                 <tr>
-                    <td>{{ $car->id }}</td>
-                    <td>{{ $car->brand }}</td>
-                    <td>{{ $car->model }}</td>
-                    <td>{{ $car->year }}</td>
-                    <td>{{ $car->color }}</td>
-                    <td>${{ $car->price }}</td>
-                    <td>
-                        <!-- Edit button -->
-                        <button class="btn-table-option edit-btn" data-id="{{ $car->id }}" title="Edit Car">
-                            <i class="fa-solid fa-edit"></i>
-                        </button>
-
-                        <!-- Confirm delete with SweetAlert modal -->
-                        <button class="btn-table-option delete-btn" data-id="{{ $car->id }}" title="Delete Car">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-
-                        <!-- Hidden form to compatibility with Laravel -->
-                        <form id="delete-form-{{ $car->id }}" action="{{ route('cars.destroy', $car->id) }}" method="POST" style="display: none;">
-                            @csrf
-                            @method('DELETE')
-                        </form>
-                    </td>
+                    <th>ID</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>Color</th>
+                    <th>Price</th>
+                    <th>Actions</th>
                 </tr>
-            @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @foreach ($cars as $car)
+                    <tr>
+                        <td>{{ $car->id }}</td>
+                        <td>{{ $car->brand }}</td>
+                        <td>{{ $car->model }}</td>
+                        <td>{{ $car->year }}</td>
+                        <td>{{ $car->color }}</td>
+                        <td>${{ $car->price }}</td>
+                        <td>
+                            <!-- Edit button -->
+                            <button class="btn-table-option edit-btn" data-id="{{ $car->id }}" title="Edit Car">
+                                <i class="fa-solid fa-edit"></i>
+                            </button>
+
+                            <!-- Confirm delete with SweetAlert modal -->
+                            <button class="btn-table-option delete-btn" data-id="{{ $car->id }}" title="Delete Car">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+
+                            <!-- Hidden form to compatibility with Laravel -->
+                            <form id="delete-form-{{ $car->id }}" action="{{ route('cars.destroy', $car->id) }}" method="POST" style="display: none;">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+
         <!-- No records message -->
         @if ($cars->isEmpty())
             <div class="alert alert-light text-center" role="alert">
