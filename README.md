@@ -4,6 +4,9 @@
 This is a demonstration of a CRUD made with Laravel framework (also using Blade), where it can be used 
 with users in a website or developers as an API. Let me show you how its works!
 
+## Demo
+Url video: [Click here](https://drive.google.com/file/d/15WcxPRzHyjPL5HRgX4onwEMp0AHAYeNe/view?usp=sharing)
+
 ## Features
 - CRUD implemented as API and web integration
 - Filtering by brand and/or model
@@ -14,7 +17,6 @@ with users in a website or developers as an API. Let me show you how its works!
 - Website designed with Bootstrap
 
 ## Previous requirements
-
 - Have the development environment installed to run PHP, the options more used are XAMPP or WampServer
 - Node JS installed, even if the main language managed here is PHP.
 - Composer as package manager that's necessary to work with PHP and in this case with Laravel.
@@ -23,7 +25,6 @@ with users in a website or developers as an API. Let me show you how its works!
 - Laravel CLI installed (optional)
 
 ## Project Installation
-
 1. Clone this repository inside `htdocs` folder if you are using XAMPP or `www` folder if you are using WampServer.
 2. Install node packages using the command: `npm install`
 3. Create database in MySQL: 
