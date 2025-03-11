@@ -88,15 +88,21 @@ You can see the index page and interact with this.
 
 ## API Usage
 
-After started the server, you can use the following endpoints 
+After started the server, you can use the following routes with their values 
 through Postman, CURL command or others ways:
+
+```bash
+# Local url
+http://localhost:8000/api
+```
 
 ### Select all existing cars
 Show all cars registered in cars table
-- Url:`http://localhost:8000/api/cars`
+- Route:`/api/cars`
 - Type: `GET`
-- Query params: N/A
-- Variables: N/A
+- Query: N/A
+- Params: N/A
+- Body: N/A
 
 #### Success
 - Status: `200` (Even if data is empty)
@@ -153,10 +159,11 @@ Show all cars registered in cars table
 
 ### Select cars from filter
 Show cars registered in cars table according values from brand and model params
-- Url: `http://localhost:8000/api/cars?brand={brand}&model={model}`
+- Route: `/cars?brand=:brand&model=:model`
 - Type: `GET`
-- Query params: `brand` `model`
-- Variables: N/A
+- Query: `brand`, `model`
+- Params: N/A
+- Body: N/A
 
 #### Success
 - Status: `200` (Even if data is empty)
@@ -217,10 +224,11 @@ Show cars registered in cars table according values from brand and model params
 ### Select a Car by Id
 
 Select a unique car according their id 
-- Url: `http://localhost:8000/api/cars/{id}`
+- Route: `/cars/:id`
 - Type: `GET`
-- Query params: N/A
-- Variable: `id`
+- Query: N/A
+- Params: `id`
+- Body: N/A
 
 #### Success
 - Status: `200`
@@ -256,10 +264,20 @@ Select a unique car according their id
 ### Add a new car
 
 Create a car, this validates information of every field. If is not correct an error will be launched 
-- Url: `http://localhost:8000/api/cars`
+- Route: `/cars`
 - Type: `POST`
-- Query params: N/A
-- Variables: N/A
+- Query: N/A
+- Params: N/A
+- Body: 
+```json
+{
+    "brand": "Toyota",
+    "model": "Hilux",
+    "year": 2019,
+    "color": "Blanco",
+    "price": "7500.00"
+}
+```
 
 #### Success
 - Status: `201`
@@ -303,10 +321,20 @@ Create a car, this validates information of every field. If is not correct an er
 ### Update a Car
 
 Update info from a car, this validates information of every field. If is not correct an error will be launched
-- Url: `http://localhost:8000/api/cars/{id}`
+- Route: `/cars/:id`
 - Type: `PUT`
-- Query params: N/A
-- Variables: `id`
+- Query: N/A
+- Params: `id`
+- Body: 
+```json
+{
+    "brand": "Renault",
+    "model": "Sandero",
+    "year": 2018,
+    "color": "Plateado",
+    "price": "4700.00"
+}
+```
 
 #### Success
 - Status: `200`
@@ -360,10 +388,11 @@ Update info from a car, this validates information of every field. If is not cor
 ### Update a Car
 
 Removes a car according their id 
-- Url: `http://localhost:8000/api/cars/{id}`
+- Route: `/cars/:id`
 - Type: `DELETE`
-- Query params: N/A
-- Variables: `id`
+- Query: N/A
+- Params: `id`
+- Body: N/A
 
 #### Success
 - Status: `200`
@@ -399,3 +428,6 @@ Removes a car according their id
     "error": " - Error description from Laravel - "
 }
 ```
+
+## Author
+- Cristian Pinzón - faykris28@gmail.com
